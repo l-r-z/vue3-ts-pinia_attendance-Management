@@ -13,8 +13,8 @@ export default defineConfig({
   plugins: [
     vue(),
     AutoImport({
-      // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
-      imports: ["vue"],
+      // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等 以及 vue-router的函数
+      imports: ["vue", "vue-router"],
       resolvers: [
         // 自动导入 Element Plus 相关函数，如：ElMessage, ElMessageBox... (带样式)
         ElementPlusResolver(),
@@ -43,6 +43,16 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
+    },
+  },
+  server: {
+    port: 8080,
+    proxy: {
+      "/api": {
+        target: "http://api.h5ke.top/",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
     },
   },
 });
