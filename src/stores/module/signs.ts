@@ -1,7 +1,7 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia';
 // 签到相关处理模块
 export default defineStore({
-  id: "signs",
+  id: 'signStore',
   state() {
     return {};
   },

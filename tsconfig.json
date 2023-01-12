@@ -3,7 +3,9 @@
   "include": [
     "env.d.ts",
     "src/**/*",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "src/**/*.d.ts",
+    "./auto-imports.d.ts" // 导入自动导入的vue api,让ts识别,别再报错
   ],
   "compilerOptions": {
     "baseUrl": ".",

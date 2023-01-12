@@ -5,13 +5,11 @@
 </template>
 
 <script setup lang="ts" name="HomeView">
-import requeset from "@/utils/requeset";
-import useStore from "@/stores";
 // 后台首页
 let send = () => {
-  requeset.post("users/login", {
-    email: "huangrong@imooc.com",
-    pass: "huangrong",
+  request.post('users/login', {
+    email: 'huangrong@imooc.com',
+    pass: 'huangrong',
   });
 };
 const { users } = useStore();

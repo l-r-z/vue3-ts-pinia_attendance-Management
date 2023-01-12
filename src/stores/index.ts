@@ -1,13 +1,20 @@
-import checksStore from "./module/checks";
-import newsStore from "./module/news";
-import signsStore from "./module/signs";
-import usersStrore from "./module/users";
+import checksStore from './module/checks';
+import newsStore from './module/news';
+import signsStore from './module/signs';
+import usersStrore from './module/users';
 
-export default () => {
+export const useStore = () => {
   return {
-    checks: checksStore(),
-    news: newsStore(),
-    sings: signsStore(),
-    users: usersStrore(),
+    checksStore: checksStore(),
+    newsStore: newsStore(),
+    signsStore: signsStore(),
+    usersStrore: usersStrore(),
   };
 };
+
+// export const sum = () => {
+//   console.log(555);
+// };
+// export default {
+//   useStore,
+// };

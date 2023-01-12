@@ -1,10 +1,25 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia';
+import type user from '@/types/storeType/users.d';
 // 用户相关处理模块
 export default defineStore({
-  id: "users",
+  id: 'userStore',
   state() {
-    return { num: 1 };
+    return {
+      token: 'asdxzcafsa',
+    };
   },
   getters: {},
-  actions: {},
+  actions: {
+    login: (data: user.User) => {
+      return request<user.UserRespones>({
+        method: 'POST',
+        url: 'users/login',
+        data,
+      });
+    },
+  },
+  persist: {
+    storage: localStorage,
+    paths: ['token'],
+  },
 });

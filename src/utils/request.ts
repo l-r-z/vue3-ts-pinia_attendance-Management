@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 // import type { AxiosRequestConfig, AxiosResponse } from "axios";
 
-const request = axios.create({ baseURL: "/api", timeout: 5000 });
+const request = axios.create({ baseURL: '/api', timeout: 5000 });
 // 请求拦截器
 request.interceptors.request.use(
   (config) => {
