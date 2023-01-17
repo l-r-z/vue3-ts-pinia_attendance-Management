@@ -5,17 +5,28 @@ export default defineStore({
   id: 'userStore',
   state() {
     return {
-      token: 'asdxzcafsa',
+      token: '',
+      userInfo: {},
     };
   },
   getters: {},
   actions: {
+    // 登录接口
     login: (data: user.User) => {
       return request<user.UserRespones>({
         method: 'POST',
         url: 'users/login',
         data,
       });
+    },
+    // 获取用户信息
+    getUserInfo: () => {
+      return request.get<user.UsersInfos>('users/infos');
+    },
+    // 清除用户信息以及token
+    CLEAR_USERINFO_TOKEN() {
+      this.token = '';
+      this.userInfo = {};
     },
   },
   persist: {

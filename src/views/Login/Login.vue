@@ -65,6 +65,7 @@ import type Users from '@/types/storeType/users';
 // }
 // const {} =
 const router = useRouter();
+const route = useRoute();
 let ruleForm = reactive<Users.User>({ email: '', pass: '' });
 let rules = reactive<FormRules>({
   email: [
@@ -89,7 +90,11 @@ const submitFrom = (formEl: FormInstance | undefined) => {
       const { usersStrore } = useStore();
       let res = await usersStrore.login(ruleForm);
       usersStrore.token = res.data.token;
-      router.push({ path: '/' });
+      router.push({
+        path: (route.query.back as string) || '/',
+      });
+
+      // router.push(route.query);
     } else {
       console.log('验证失败');
     }

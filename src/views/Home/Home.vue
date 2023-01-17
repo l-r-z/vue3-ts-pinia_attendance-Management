@@ -1,7 +1,9 @@
 <template>
   <div>homeView</div>
   <el-button @click="send">请求测试</el-button>
-  {{ users }}
+  {{ usersStrore }}
+  <!-- <RouterView></RouterView> -->
+  <router-view></router-view>
 </template>
 
 <script setup lang="ts" name="HomeView">
@@ -12,7 +14,7 @@ let send = () => {
     pass: 'huangrong',
   });
 };
-const { users } = useStore();
+const { usersStrore } = useStore();
 </script>
 
 <style scoped lang="scss"></style>

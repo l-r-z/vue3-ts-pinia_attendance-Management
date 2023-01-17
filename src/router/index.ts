@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { isEmptyObj } from '@/utils/index';
+import { ElMessage } from 'element-plus';
 declare module 'vue-router' {
   interface RouteMeta {
     menu?: boolean;
@@ -16,7 +18,6 @@ const router = createRouter({
       name: 'home',
       redirect: 'sing',
       component: () => import('@/views/Home/Home.vue'),
-
       children: [
         {
           path: 'sing', //在线打卡签到
@@ -72,4 +73,48 @@ const router = createRouter({
   ],
 });
 
+router.beforeEach(async (to, from, next) => {
+  // 有权限接口
+  const { usersStrore } = useStore();
+  // 需要权限并且没有用户信息
+  if (to.meta.auth && isEmptyObj(usersStrore.userInfo)) {
+    // 有登录
+    if (usersStrore.token) {
+      // 获取用户信息
+      const res = await usersStrore.getUserInfo();
+      // if (res.data.errcode === 0) {
+      usersStrore.userInfo = res.data.infos;
+      console.log('获取用户信息成功--', res.data.infos);
+      next();
+      // }
+      // else {
+      //   // 登录token失效了,在响应拦截做处理,其它位置也需要用到
+      //   ElMessage.error({
+      //     message: '登录失效请重新登录认证',
+      //     onClose() {
+      //       next({
+      //         path: '/login',
+      //       });
+      //     },
+      //   });
+      // }
+    } else {
+      next({
+        path: '/login',
+        query: {
+          back: to.fullPath,
+        },
+      });
+    }
+  } else {
+    // 没有权限页面直接放行
+
+    // 已经登录了,不再允许去login页面;否则放行
+    if (usersStrore.token && to.fullPath.toLocaleLowerCase() === '/login') {
+      next('/');
+    } else {
+      next();
+    }
+  }
+});
 export default router;
